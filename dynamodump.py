@@ -61,9 +61,10 @@ def get_table_name_matches(conn, table_name_wildcard, separator):
 def get_restore_table_matches(table_name_wildcard, separator):
     matching_tables = []
     try:
-        dir_list = os.listdir("./" + args.dumpPath)
+        dump_data_path = args.dumpPath if args.dumpPath.startswith("/") else "./" + args.dumpPath
+        dir_list = os.listdir(dump_data_path)
     except OSError:
-        logging.info("Cannot find \"./%s\", Now trying current working directory.." % args.dumpPath)
+        logging.info("Cannot find \"%s\", Now trying current working directory.." % args.dumpPath)
         dump_data_path = CURRENT_WORKING_DIR
         try:
             dir_list = os.listdir(dump_data_path)
